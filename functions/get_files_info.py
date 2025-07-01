@@ -1,4 +1,5 @@
 from os.path import abspath, isdir
+from os import listdir
 
 
 def get_files_info(working_directory, directory=None):
@@ -17,3 +18,6 @@ def get_files_info(working_directory, directory=None):
     # file_name, file_size, is_dir
     # use os.listdir to get files, then build dict of info?
     # os.path.getsize() | os.path.isfile()
+    for file in files:
+        f_path = join("calculator", file)
+        print(f"name: {file}, size: {getsize(f_path)}, is_Dir={isdir(f_path)}")
