@@ -1,30 +1,28 @@
-from os.path import abspath, isdir, join
+from os.path import abspath, isdir, join, getsize
 from os import listdir
 
 
-def get_files_info(working_directory, directory=None):
-    #
+def get_files_info(working_directory, directory="."):
+    abs_workdir = abspath(working_directory)
+    target_dir = abspath(join(working_directory, directory))
 
-    dir_str = abspath(directory)
-    workdir_str = abspath(working_directory)
-
-    if not isdir(directory):
-        return f'Error: "{directory}" is not a directory'
-
-    if not dir_str.startswith(workdir_str):
+    if not target_dir.startswith(abs_workdir):
         return f'Error: Cannot list "{directory}" as it is outside the permitted working directory'
 
-    # get list of files and make a string
-    # directory might be a sub_dir of working_dir
-    # file_name, file_size, is_dir
-    # use os.listdir to get files, then build dict of info?
-    # os.path.getsize() | os.path.isfile()
+    if not isdir(target_dir):
+        return f'Error: "{directory}" is not a directory'
 
-    files = listdir(directory)
-    output = []
+    try:
+        files = listdir(target_dir)
+        file_info = []
 
-    for file in files:
-        f_path = join(directory, file)
-        output.append("f- {file}: file_size: {getsize(f_path)}, is_dir={isdir(f_path)}")
+        for file in files:
+            f_path = join(target_dir, file)
+            file_info.append(
+                f"- {file}: file_size: {getsize(f_path)} bytes, is_dir={isdir(f_path)}"
+            )
 
-    return output
+        return "\n".join(file_info)
+
+    except Exception as e:
+        return f"Error listing files: {e}"
