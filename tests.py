@@ -56,7 +56,7 @@ class TestGetFileContent(unittest.TestCase):
         func = get_file_content("calculator", "pkg/calculator.py")
         result = "def _apply_operator(self, operators, values)"
         print("Result for 'pkg/calculator.py' file:")
-        print(func[:100])
+        print(func)[:100]
         print("")
         self.assertIn(result, func)
 
@@ -79,6 +79,23 @@ class TestGetFileContent(unittest.TestCase):
         print(func)
         print("")
         self.assertIn(result, func)
+
+
+class TestWriteFile(unittest.TestCase):
+    def test_write_existing_file(self):
+        pass
+
+
+class TestBDCases(unittest.TestCase):
+    def test():
+    result = get_file_content("calculator", "main.py")
+    print(result)
+
+    result = get_file_content("calculator", "pkg/calculator.py")
+    print(result)
+
+    result = get_file_content("calculator", "/bin/cat")
+    print(result)
 
 
 if __name__ == "__main__":

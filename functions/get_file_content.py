@@ -1,7 +1,5 @@
 from os.path import abspath, join, isfile
-
-
-MAX_CHARS = 10000
+from config import MAX_CHARS
 
 
 def get_file_content(working_directory, file_path):
@@ -19,7 +17,7 @@ def get_file_content(working_directory, file_path):
             file_content_str = file.read(MAX_CHARS)
             if len(file_content_str) == MAX_CHARS:
                 file_content_str += (
-                    f'[...File "{file_path}" truncated at 10000 characters]'
+                    f'[...File "{file_path}" truncated at "{MAX_CHARS}" characters]'
                 )
         return file_content_str
 
