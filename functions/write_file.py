@@ -4,22 +4,21 @@ from os import makedirs
 
 def write_file(working_directory, file_path, content):
     abs_workdir = abspath(working_directory)
-    target_file = abspath(join(working_directory, file_path))
+    abs_file_path = abspath(join(working_directory, file_path))
 
-    if not target_file.startswith(abs_workdir):
+    if not abs_file_path.startswith(abs_workdir):
         return f'Error: Cannot write to "{file_path}" as it is outside the permitted working directory'
 
-    create_dir = dirname(abspath(file_path))
-    if not exists(create_dir):
+    if not exists(abs_file_path):
         try:
-            makedirs(create_dir, exist_ok=True)
+            makedirs(dirname(abs_file_path), exist_ok=True)
         except Exception as e:
             return f"Error: creating directory: {e}"
-    if exists(create_dir) and isdir(create_dir):
+    if exists(abs_file_path) and isdir(abs_file_path):
         return f'Error: "{file_path}" is a directory, not a file'
 
     try:
-        with open(target_file, "w") as file:
+        with open(abs_file_path, "w") as file:
             file.write(content)
         return (
             f'Successfully wrote to "{file_path}" ({len(content)} characters written)'
