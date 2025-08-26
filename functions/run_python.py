@@ -18,7 +18,7 @@ def run_python_file(working_directory, file_path, args=[]):
         return f'Error: "{file_path}" is not a Python file.'
 
     try:
-        commands = ["python3", abs_file_path]
+        commands = ["python", abs_file_path]
         if args:
             commands.extend(args)
 
@@ -27,7 +27,7 @@ def run_python_file(working_directory, file_path, args=[]):
         output = []
         if completed_process.stdout:
             output.append(f"STDOUT:\n{completed_process.stdout}")
-        if completed_process.stdout:
+        if completed_process.stderr:
             output.append(f"STDERR:\n{completed_process.stderr}")
 
         if completed_process.returncode != 0:
